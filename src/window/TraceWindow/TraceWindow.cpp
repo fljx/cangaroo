@@ -165,7 +165,16 @@ bool TraceWindow::loadXML(Backend &backend, QDomElement &el)
 
     QDomElement elAggregated = el.firstChildElement("AggregatedTraceView");
     int sortColumn = elAggregated.attribute("SortColumn", "-1").toInt();
-    ui->tree->sortByColumn(sortColumn);
+
+    auto currentColumn = ui->tree->header()->sortIndicatorSection();
+
+    // Invert sorting if same sort column.
+    // Qt::AscendingOrder or Qt::DescendingOrder
+    Qt::SortOrder order = currentColumn == sortColumn ?
+        (ui->tree->header()->sortIndicatorOrder() == Qt::AscendingOrder ?
+            Qt::DescendingOrder : Qt::AscendingOrder)
+        : Qt::AscendingOrder;
+    ui->tree->sortByColumn(sortColumn, order);
 
     return true;
 }

@@ -24,14 +24,13 @@
 
 #include <QDateTime>
 
-#include <core/CanTrace.h>
-#include <core/MeasurementSetup.h>
-#include <core/MeasurementNetwork.h>
-#include <core/MeasurementInterface.h>
-#include <driver/CanDriver.h>
-#include <driver/CanInterface.h>
-#include <driver/CanListener.h>
-#include <parser/dbc/DbcParser.h>
+#include "core/CanTrace.h"
+#include "core/MeasurementSetup.h"
+#include "core/MeasurementNetwork.h"
+#include "core/MeasurementInterface.h"
+#include "driver/CanInterface.h"
+#include "driver/CanListener.h"
+#include "parser/dbc/DbcParser.h"
 
 Backend *Backend::_instance = 0;
 
@@ -138,7 +137,7 @@ void Backend::loadDefaultSetup(MeasurementSetup &setup)
         driver->update();
         foreach (CanInterfaceId intf, driver->getInterfaceIds()) {
             MeasurementNetwork *network = setup.createNetwork();
-            network->setName(QString().sprintf("Network %d", i++));
+            network->setName(QString().asprintf("Network %d", i++));
 
             MeasurementInterface *mi = new MeasurementInterface();
             mi->setCanInterface(intf);

@@ -1,0 +1,27 @@
+cmake_minimum_required(VERSION 3.11)
+project(cangaroo VERSION 1.0)
+
+set(CMAKE_CXX_STANDARD 23)
+
+add_subdirectory(src)
+add_subdirectory(canifconfig)
+
+# include_directories(
+#     "${CMAKE_CURRENT_SOURCE_DIR}/include"
+# )
+
+# add_library(types SHARED
+#     "include/network/ip.h"
+#     "lib/network/ip.cpp"
+# )
+
+# option(BUILD_TESTING "Build SW tests" ON)
+# option(BUILD_DEMO "Build demo app" OFF)
+
+# if(BUILD_TESTING)
+#     add_subdirectory(tests)
+# endif()
+
+# if(BUILD_DEMO)
+#     add_subdirectory(demo)
+# endif()

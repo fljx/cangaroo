@@ -20,7 +20,10 @@
 */
 
 #include "DbcParser.h"
+
 #include <QTextStream>
+#include <QRegularExpression>
+
 #include <stdint.h>
 #include <iostream>
 #include <core/Backend.h>
@@ -52,7 +55,7 @@ bool DbcParser::parseFile(QFile *file, CanDb &candb)
 DbcToken *DbcParser::createNewToken(QChar ch, int line, int column)
 {
     static const QString acceptableIdStartChars("ABCDEFGHIKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_");
-    static const QRegExp numberRegExp("^(\\d+(\\.\\d*)?(E[-+]?\\d*)?)$");
+    static const QRegularExpression numberRegExp("^(\\d+(\\.\\d*)?(E[-+]?\\d*)?)$");
 
     if (ch.isSpace()) {
         return new DbcWhitespaceToken(line, column);
@@ -104,7 +107,7 @@ DbcParser::error_t DbcParser::tokenize(QFile *file, DbcParser::DbcTokenList &tok
     error_t retval = err_ok;
 
     QTextStream in(file);
-    in.setCodec("ISO 8859-1");
+    in.setEncoding(QStringConverter::Latin1);   // ISO-8859-1
 
     while (true) {
         QString s = in.read(1);

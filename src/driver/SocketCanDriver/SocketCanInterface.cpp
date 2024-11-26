@@ -40,6 +40,10 @@
 #include <linux/can.h>
 #include <linux/can/raw.h>
 #include <linux/can/netlink.h>
+
+// TODO: Check Linux kernel version before including.
+#include <linux/sockios.h>  // SIOCGSTAMP
+
 #include <netlink/version.h>
 #include <netlink/route/link.h>
 #include <netlink/route/link/can.h>
